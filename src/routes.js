@@ -2,6 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
+const verifyJwt = require("jwt.js"); // Importando a validação JWT
 
 //Rota de Configuração (Obrigatória)
 router.get("/config.json", (req, res) => {
@@ -30,25 +31,25 @@ router.get("/config.json", (req, res) => {
 });
 
 //Rota de Validação (Chamado ao adicionar a atividade no Journey Builder)
-router.post("/validate", (req, res) => {
+router.post("/validate", verifyJwt, (req, res) => {
     console.log("Validando atividade:", req.body);
     res.status(200).json({ status: "Success", message: "Atividade validada com sucesso" });
 });
 
 //Rota de Salvamento (Chamado ao clicar em 'Salvar' na configuração)
-router.post("/save", (req, res) => {
+router.post("/save", verifyJwt, (req, res) => {
     console.log("Salvando atividade:", req.body);
     res.status(200).json({ status: "Success", message: "Atividade salva com sucesso" });
 });
 
 //Rota de Publicação (Chamado ao ativar a jornada)
-router.post("/publish", (req, res) => {
+router.post("/publish", verifyJwt, (req, res) => {
     console.log("Publicando atividade:", req.body);
     res.status(200).json({ status: "Success", message: "Atividade publicada" });
 });
 
 //Rota de Execução (Chamado quando a atividade é executada no Journey Builder)
-router.post("/execute", (req, res) => {
+router.post("/execute", verifyJwt, (req, res) => {
     console.log("Executando atividade:", req.body);
 
     const inArguments = req.body?.arguments?.execute?.inArguments || [];
@@ -65,13 +66,13 @@ router.post("/execute", (req, res) => {
 });
 
 //Rota de Parada (Chamado ao pausar a jornada)
-router.post("/stop", (req, res) => {
+router.post("/stop", verifyJwt, (req, res) => {
     console.log("Parando atividade:", req.body);
     res.status(200).json({ status: "Success", message: "Atividade pausada" });
 });
 
 //Rota de Despublicação (Chamado ao desativar a jornada)
-router.post("/unpublish", (req, res) => {
+router.post("/unpublish", verifyJwt, (req, res) => {
     console.log("Despublicando atividade:", req.body);
     res.status(200).json({ status: "Success", message: "Atividade despublicada" });
 });
