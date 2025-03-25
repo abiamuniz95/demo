@@ -1,7 +1,7 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon": "public/images/dog.avif",
+    "icon": "./public/images/dog.avif",
     "category": "custom"
   },
   "type": "REST",
