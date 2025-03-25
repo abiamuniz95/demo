@@ -5,6 +5,8 @@ const router = express.Router();
 const verifyJwt = require("../src/jwt"); // Importando a validação JWT
 const config = require("../config.json"); // Importando o JSON da configuração
 
+console.log("entrou na secção de routes");
+
 //Rota de Configuração (Obrigatória)
 router.get("/config.json", (req, res) => {
     res.json(config);
