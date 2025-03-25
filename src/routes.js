@@ -3,31 +3,11 @@
 const express = require("express");
 const router = express.Router();
 const verifyJwt = require("../src/jwt"); // Importando a validação JWT
+const config = require("../config.json"); // Importando o JSON da configuração
 
 //Rota de Configuração (Obrigatória)
 router.get("/config.json", (req, res) => {
-    res.json({
-        workflowApiVersion: "1.1",
-        metaData: {
-            icon: "https://example.com/icon.png",
-            category: "message"
-        },
-        type: "REST",
-        lang: {
-            "en-US": {
-                name: "Minha Custom Activity",
-                description: "Descrição da atividade"
-            }
-        },
-        arguments: {
-            executionMode: "async",
-            execute: {
-                inArguments: [],
-                outArguments: [],
-                url: "https://seu-servidor.com/execute"
-            }
-        }
-    });
+    res.json(config);
 });
 
 //Rota de Validação (Chamado ao adicionar a atividade no Journey Builder)
