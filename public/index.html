@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minha Custom Activity</title>
+<script src="/postmonger/postmonger.js"></script>
+</head>
+<body>
+<h1>Configuração da Custom Activity</h1>
+<label>
+<input type="radio" name="opcao" value="opcao1"> Opção 1
+</label>
+<br>
+<label>
+<input type="radio" name="opcao" value="opcao2"> Opção 2
+</label>
+<br>
+<label>
+<input type="radio" name="opcao" value="opcao3"> Opção 3
+</label>
+<hr>
+<button id="save">Salvar</button>
+
+<script>
+var connection = new Postmonger.Session();
+
+document.getElementById("save").addEventListener("click", function () {
+        // Captura a opção selecionada
+        var selectedOption = document.querySelector('input[name="opcao"]:checked');
+        var selectedValue = selectedOption ? selectedOption.value : null;
+        console.log("valor escolhido: " + selectedValue);
+
+        // Verifica se alguma opção foi escolhida antes de enviar
+        if (!selectedValue) {
+            alert("Por favor, selecione uma opção antes de salvar.");
+            return;
+        }
+
+    connection.trigger("updateActivity", { 
+        arguments: { 
+            execute: { 
+                inArguments: [{ selectedOption: selectedValue }] 
+            } 
+        } 
+    });
+});
+
+connection.trigger("ready");
+</script>
+</body>
+</html>

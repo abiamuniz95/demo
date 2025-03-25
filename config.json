@@ -1,0 +1,31 @@
+{
+"workflowApiVersion": "1.1",
+"metaData": {
+"icon": "/images/dog.avif",
+"category": "custom"
+},
+"type": "REST",
+"lang": {
+"en-US": {
+    "name": "Minha Custom Activity",
+    "description": "Descrição da atividade"
+}
+},
+"arguments": {
+"execute": {
+    "inArguments": [{
+        "selectedOption": "{{Event.SelectedOption}}",
+        "teste":"esse é um valor de teste",
+        "contactKey":"{{Contact.Key}}",
+        "eventDate": "{{Event.EventDate}}",
+        "activityId": "{{Event.ActivityId}}",
+        "previousActivityStatus": "{{Event.PreviousActivityStatus}}",
+        "journeyId": "{{Journey.Id}}",
+        "journeyName": "{{Journey.Name}}",
+        "pushNotificationStatus": "{{Event.PushNotificationStatus}}"
+    }], 
+    "outArguments": [],
+    "url": "https://seu-servidor.com/execute" 
+}
+}
+}
