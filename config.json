@@ -1,31 +1,68 @@
 {
-"workflowApiVersion": "1.1",
-"metaData": {
-"icon": "/images/dog.avif",
-"category": "custom"
-},
-"type": "REST",
-"lang": {
-"en-US": {
-    "name": "Minha Custom Activity",
-    "description": "Descrição da atividade"
-}
-},
-"arguments": {
-"execute": {
-    "inArguments": [{
-        "selectedOption": "{{Event.SelectedOption}}",
-        "teste":"esse é um valor de teste",
-        "contactKey":"{{Contact.Key}}",
-        "eventDate": "{{Event.EventDate}}",
-        "activityId": "{{Event.ActivityId}}",
-        "previousActivityStatus": "{{Event.PreviousActivityStatus}}",
-        "journeyId": "{{Journey.Id}}",
-        "journeyName": "{{Journey.Name}}",
-        "pushNotificationStatus": "{{Event.PushNotificationStatus}}"
-    }], 
-    "outArguments": [],
-    "url": "https://seu-servidor.com/execute" 
-}
-}
+  "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "/images/dog.avif",
+    "category": "custom"
+  },
+  "type": "REST",
+  "lang": {
+    "en-US": {
+      "name": "Minha Custom Activity",
+      "description": "Descrição da atividade"
+    }
+  },
+  "arguments": {
+    "execute": {
+      "inArguments": [
+        {
+          "selectedOption": "{{Event.SelectedOption}}",
+          "teste": "esse é um valor de teste",
+          "contactKey": "{{Contact.Key}}",
+          "eventDate": "{{Event.EventDate}}",
+          "activityId": "{{Event.ActivityId}}",
+          "previousActivityStatus": "{{Event.PreviousActivityStatus}}",
+          "journeyId": "{{Journey.Id}}",
+          "journeyName": "{{Journey.Name}}",
+          "pushNotificationStatus": "{{Event.PushNotificationStatus}}"
+        }
+      ],
+      "outArguments": [],
+      "url": "https://demo-da4j.onrender.com/execute",
+      "verb": "POST",
+      "format": "json",
+      "useJwt": true,
+      "timeout": 10000
+    }
+  },
+  "configurationArguments": {
+    "applicationExtensionKey": "f2318cde-3638-42be-808a-0c291721b59e",
+    "save": {
+      "url": "https://demo-da4j.onrender.com/save",
+      "verb": "POST",
+      "useJwt": true
+    },
+    "publish": {
+      "url": "https://demo-da4j.onrender.com/publish",
+      "verb": "POST",
+      "useJwt": true
+    },
+    "stop": {
+      "url": "https://demo-da4j.onrender.com/stop",
+      "verb": "POST",
+      "useJwt": true
+    },
+    "validate": {
+      "url": "https://demo-da4j.onrender.com/validate",
+      "verb": "POST",
+      "useJwt": true
+    }
+  },
+  "wizardSteps": [{ "label": "Configuração da Atividade", "key": "step1" }],
+  "userInterfaces": {
+    "configModal": {
+      "height": 600,
+      "width": 1200,
+      "fullscreen": false
+    }
+  }
 }
