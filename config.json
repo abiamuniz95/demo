@@ -1,14 +1,14 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon": "/images/dog.avif",
+    "icon": "public/images/dog.avif",
     "category": "custom"
   },
   "type": "REST",
   "lang": {
     "en-US": {
-      "name": "Minha Custom Activity",
-      "description": "Descrição da atividade"
+      "name": "Custom Activity",
+      "description": "Custom Activiy demo"
     }
   },
   "arguments": {

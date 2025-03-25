@@ -2,7 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
-const verifyJwt = require("jwt.js"); // Importando a validação JWT
+const verifyJwt = require("../src/jwt"); // Importando a validação JWT
 
 //Rota de Configuração (Obrigatória)
 router.get("/config.json", (req, res) => {
