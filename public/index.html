@@ -1,52 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minha Custom Activity</title>
-<script src="/postmonger/postmonger.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Activity</title>
+    <script src="/postmonger/postmonger.js"></script>
 </head>
 <body>
-<h1>Configuração da Custom Activity</h1>
-<label>
-<input type="radio" name="opcao" value="opcao1"> Opção 1
-</label>
-<br>
-<label>
-<input type="radio" name="opcao" value="opcao2"> Opção 2
-</label>
-<br>
-<label>
-<input type="radio" name="opcao" value="opcao3"> Opção 3
-</label>
-<hr>
-<button id="save">Salvar</button>
+    <h1>Configuração da Custom Activity</h1>
+    <label>
+        <input type="radio" name="opcao" value="opcao1"> Opção 1
+    </label>
+    <br>
+    <label>
+        <input type="radio" name="opcao" value="opcao2"> Opção 2
+    </label>
+    <br>
+    <label>
+        <input type="radio" name="opcao" value="opcao3"> Opção 3
+    </label>
 
-<script>
-var connection = new Postmonger.Session();
+    <script>
+        var connection = new Postmonger.Session();
+        var selectedValue = null; // Variável para armazenar a opção selecionada
 
-document.getElementById("save").addEventListener("click", function () {
-        // Captura a opção selecionada
-        var selectedOption = document.querySelector('input[name="opcao"]:checked');
-        var selectedValue = selectedOption ? selectedOption.value : null;
-        console.log("valor escolhido: " + selectedValue);
+        // Quando a atividade for inicializada, recuperar os valores salvos anteriormente
+        connection.on("initActivity", function(payload) {
+            var inArguments = payload.arguments?.execute?.inArguments || [];
+            console.log("Dados iniciais da atividade:", inArguments);
 
-        // Verifica se alguma opção foi escolhida antes de enviar
-        if (!selectedValue) {
-            alert("Por favor, selecione uma opção antes de salvar.");
-            return;
-        }
+            // Se houver uma opção já salva, marcar no formulário
+            selectedValue = inArguments.length > 0 ? inArguments[0].selectedOption : null;
+            if (selectedValue) {
+                var selectedOption = document.querySelector(`input[value="${selectedValue}"]`);
+                if (selectedOption) {
+                    selectedOption.checked = true;
+                }
+            }
+        });
 
-    connection.trigger("updateActivity", { 
-        arguments: { 
-            execute: { 
-                inArguments: [{ selectedOption: selectedValue }] 
-            } 
-        } 
-    });
-});
+        // Evento acionado ao clicar no botão "Done"
+        connection.on("clickedNext", function() {
+            var selectedOption = document.querySelector('input[name="opcao"]:checked');
+            selectedValue = selectedOption ? selectedOption.value : null;
 
-connection.trigger("ready");
-</script>
+            if (!selectedValue) {
+                alert("Por favor, selecione uma opção antes de continuar.");
+                return;
+            }
+
+            connection.trigger("updateActivity", { 
+                arguments: { 
+                    execute: { 
+                        inArguments: [{ selectedOption: selectedValue }] 
+                    } 
+                } 
+            });
+
+            console.log("Opção enviada ao Journey Builder:", selectedValue);
+        });
+
+        connection.trigger("ready");
+    </script>
 </body>
 </html>
